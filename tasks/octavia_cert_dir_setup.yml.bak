@@ -1,0 +1,69 @@
+---
+# These are the tasks to create the certificate
+# directories for client and server certificates 
+# as well other required files for openssl certs
+- name: Create the base directory for octavia certs
+  file:
+    path: "{{ octavia_certs_dir }}"
+    state: directory 
+    mode: '0700'
+
+- name: Create the sub directories for client and server certs
+  file:
+    path: "{{ octavia_certs_dir }}/{{ item }}"
+    state: directory
+  loop:
+    - client_ca
+    - server_ca
+
+- name: Create the sub directories for client certificates
+  file:
+    path: "{{ octavia_certs_dir }}/client_ca/{{ item }}"
+    state: directory
+  loop:
+    - certs
+    - crl
+    - csr
+    - newcerts
+    - private
+
+- name: Create the sub directories for server certificates
+  file:
+    path: "{{ octavia_certs_dir }}/server_ca/{{ item }}"
+    state: directory
+  loop:
+    - certs
+    - crl
+    - newcerts
+    - private
+
+- name: Set the permissions on private key directories
+  file:
+    path: "{{ octavia_certs_dir }}/{{ item }}"
+    state: directory
+    mode: '0700'
+  loop:
+    - "client_ca/private"
+    - "server_ca/private"
+
+- name: Create index files for the client and server certs
+  file:
+    path: "{{ octavia_certs_dir }}/{{ item }}/index.txt"
+    state: touch
+  loop:
+    - client_ca
+    - server_ca
+
+- name: Create serial files for the client and server certs
+  copy:
+    content: '1000'
+    dest: "{{ octavia_certs_dir }}/{{ item }}/serial"
+  loop:
+    - client_ca
+    - server_ca
+
+- name: Create openssl.cnf file required for the certificates
+  template:
+    src: "templates/openssl.cnf.j2"
+    dest: "{{ octavia_certs_dir }}/openssl.cnf"
+    mode: '0440'
