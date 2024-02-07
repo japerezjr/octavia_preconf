@@ -20,9 +20,9 @@ Dependencies
 
 The role was tested with the below versions of ansible and openstacksdk:
 
-+++\n
-pip install "ansible>=2.9"  "openstacksdk>=1.0.0"
-+++\n
++++\
+pip install "ansible>=2.9"  "openstacksdk>=1.0.0"\
++++
 
 it is preferred to create a virtual environment with python and install the dependencies there
 
