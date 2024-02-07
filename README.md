@@ -29,10 +29,10 @@ it is preferred to create a virtual environment with python and install the depe
 Example Playbook
 ----------------
 
-here's an example playbook:\
+here's an example playbook:
 
 +++\
-- name: Pre-requisites for enabling amphora provider in octavia\
+\- name: Pre-requisites for enabling amphora provider in octavia\
   hosts: localhost\
   environment:\
     OS_ENDPOINT_TYPE: internalURL\
@@ -42,7 +42,7 @@ here's an example playbook:\
     OS_PROJECT_NAME: 'admin'\
     OS_TENANT_NAME: 'admin'\
     OS_AUTH_TYPE: password\
-    OS_AUTH_URL: 'http://keystone.openstack.svc.cluster.local/v3'\
+    OS_AUTH_URL: 'http://keystone.openstack.svc.cluster.local/v3' \
     OS_USER_DOMAIN_NAME: 'default'\
     OS_PROJECT_DOMAIN_NAME: 'default'\
     OS_CLOUD: 'openstack_helm'\
@@ -50,9 +50,9 @@ here's an example playbook:\
     OS_IDENTITY_API_VERSION: 3\
     OS_AUTH_VERSION: 3\
     NOVA_ENDPOINT_TYPE: internalURL\
-  roles:\
-    - /root/octavia_preconf\
-+++\
+  roles: \ 
+     \- /root/octavia_preconf \
+  +++ 
 
 these are the environment variables which are required for keystone auth and must be modified as required
 
