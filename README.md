@@ -1,38 +1,61 @@
-Role Name
+octavia_preconf
 =========
 
-A brief description of the role goes here.
+This is a role for performing the pre-requisite tasks to enable amphora provider for octavia for example creating a network and a subnet for amphorae, uploading the image to glance, creating ssh keys etc. This is mainly intended for running octavia in a k8s environment
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+There are certain requirements for running this role
+1. this role needs to be run on any of the nodes which has access to the keystone admin endpoint
+2. this role also needs access to the k8s cluster as it tries to create "octavia-certs" secret in the openstack namespace to it needs access to kubectl utility
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The available variables can be found in the defaults/main.yml file
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+The role was tested with the below versions of ansible and openstacksdk:
+
++++
+pip install "ansible>=2.9"  "openstacksdk>=1.0.0"
++++
+
+it is preferred to create a virtual environment with python and install the dependencies there
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+here's an example playbook:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
++++
+- name: Pre-requisites for enabling amphora provider in octavia
+  hosts: localhost
+  environment:
+    OS_ENDPOINT_TYPE: internalURL
+    OS_INTERFACE: internalURL
+    OS_USERNAME: 'admin'
+    OS_PASSWORD: 'password'
+    OS_PROJECT_NAME: 'admin'
+    OS_TENANT_NAME: 'admin'
+    OS_AUTH_TYPE: password
+    OS_AUTH_URL: 'http://keystone.openstack.svc.cluster.local/v3'
+    OS_USER_DOMAIN_NAME: 'default'
+    OS_PROJECT_DOMAIN_NAME: 'default'
+    OS_CLOUD: 'openstack_helm'
+    OS_REGION_NAME: 'RegionOne'
+    OS_IDENTITY_API_VERSION: 3
+    OS_AUTH_VERSION: 3
+    NOVA_ENDPOINT_TYPE: internalURL
+  roles:
+    - /root/octavia_preconf
++++
 
-License
--------
-
-BSD
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Punit Kundal
