@@ -35,6 +35,7 @@ amphora_image_version: focal
 amphora_image_name: amphora-ubuntu-{{ amphora_image_version }}
 
 # these are the defaults for certs
+octavia_create_certs: true
 octavia_certs_dir: "{{ lookup('env', 'HOME') }}/octavia_certs"
 octavia_cert_key_bits: 4096
 octavia_key_type: "RSA"
