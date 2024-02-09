@@ -32,4 +32,7 @@
 - name: Create the helm values file for amphora provider
   template:
     src: templates/2023.1-ubuntu_jammy.yaml.j2
-    dest: /root/2023.1-ubuntu_jammy.yaml
+    dest: "{{ octavia_helm_values_file }}"
+
+- debug:
+    msg: "helm values file generated: {{ octavia_helm_values_file }}"
