@@ -8,25 +8,25 @@
 - name: Obtain the owner id of the amphora image
   openstack.cloud.image_info:
     image: "{{ amphora_image_name }}"
-    interface: admin
+    interface: public
   register: _amphora_image_info
 
 - name: Obtain the UUID of the amphora sec group
   openstack.cloud.security_group_info:
     name: "{{ lb_mgmt_secgrp_name }}"
-    interface: admin
+    interface: public
   register: _amphora_sec_group_info
 
 - name: Obtain the UUID of the amphora flavor
   openstack.cloud.compute_flavor_info:
     name: "{{ amphora_flavor_name }}"
-    interface: admin
+    interface: public
   register: _amphora_flavor_info
 
 - name: Obtain the UUID of lb-mgmt-net
   openstack.cloud.networks_info:
     name: lb-mgmt-net
-    interface: admin
+    interface: public
   register: _amphora_lb_net_info
 
 - name: Create the helm values file for amphora provider

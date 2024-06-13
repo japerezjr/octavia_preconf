@@ -13,4 +13,4 @@
     security_group: "{{ octavia_num_secgroup }}"
     security_group_rule: "{{ octavia_num_secgroup_rule }}"
     server_group_members: "{{ num_amphora_server_group_member }}"
-    interface: admin
+    interface: public

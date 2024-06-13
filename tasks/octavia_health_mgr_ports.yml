@@ -7,13 +7,13 @@
 - name: Obtain the UUID of the lb-mgmt-net
   openstack.cloud.networks_info:
     name: lb-mgmt-net
-    interface: admin
+    interface: public
   register: lb_mgmt_info
 
 - name: Obtain the UUID of the health_mgr secgroup
   openstack.cloud.security_group_info:
     name: "{{ lb_health_mgr_secgrp_name }}"
-    interface: admin
+    interface: public
   register: lb_health_mgr_secgrp_info
 
 - name: run the shell script to create health_mgr ports if required
