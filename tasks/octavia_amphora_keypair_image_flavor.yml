@@ -16,7 +16,7 @@
     name: "{{ amphora_ssh_key_name }}"
     public_key: "{{ lookup('file', '/tmp/amphora_ssh_key.pub') }}"
     state: present
-    interface: admin
+    interface: public
   when: amphora_ssh_enabled
 
 - name: Create flavor for amphorae 
@@ -27,7 +27,7 @@
     vcpus: 2
     ram: 1024
     is_public: false
-    interface: admin
+    interface: public
   register: create_amphora_flavor
   until: create_amphora_flavor is success
   retries: 5
@@ -53,7 +53,7 @@
     protected: true
     tags:
     - amphora
-    interface: admin
+    interface: public
   register: push_amphora_image
   until: push_amphora_image is success
   retries: 5

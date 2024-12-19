@@ -10,7 +10,7 @@
     name: "{{ lb_mgmt_secgrp_name }}"
     state: present
     description: "security group for octavia amphorae"
-    interface: admin
+    interface: public
   register: create_lb_mgmt_secgroup
   until: create_lb_mgmt_secgroup is success
   retries: 5
@@ -24,7 +24,7 @@
     port_range_min: 9443
     port_range_max: 9443
     remote_ip_prefix: "{{ lb_mgmt_subnet_cidr }}"
-    interface: admin
+    interface: public
   register: lb_mgmt_secgroup_r1
   until: lb_mgmt_secgroup_r1 is success
   retries: 5
@@ -36,7 +36,7 @@
     state: present
     protocol: icmp
     remote_ip_prefix: "{{ lb_mgmt_subnet_cidr }}"
-    interface: admin
+    interface: public
   register: lb_mgmt_secgroup_r2
   until: lb_mgmt_secgroup_r2 is success
   retries: 5
@@ -51,7 +51,7 @@
     port_range_min: 22
     port_range_max: 22
     remote_ip_prefix: "{{ lb_mgmt_subnet_cidr }}"
-    interface: admin
+    interface: public
   register: lb_mgmt_secgroup_r3
   until: lb_mgmt_secgroup_r3 is success
   retries: 5
@@ -63,7 +63,7 @@
     name: "{{ lb_health_mgr_secgrp_name }}"
     state: present
     description: "security group for health manager ports"
-    interface: admin
+    interface: public
   register: create_lb_health_mgr_secgroup
   until: create_lb_health_mgr_secgroup is success
   retries: 5
@@ -76,7 +76,7 @@
     protocol: udp
     port_range_min: 5555
     port_range_max: 5555
-    interface: admin
+    interface: public
   register: lb_health_mgr_secgroup_r1
   until: lb_health_mgr_secgroup_r1 is success
   retries: 5
